@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(46, 54, 83);
+}
+
+.slot {
+  background: url("/src/slot.png") cover;
+}
+
+.arm-1 {
+  background: url("/src/arm/1.png") cover;
+}
+
+.arm-2 {
+  background: url("/src/arm/1.png") cover;
+}
+
+.arm-3 {
+  background: url("/src/arm/1.png") cover;
+}
