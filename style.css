@@ -9,6 +9,7 @@ html {
 
 body {
   height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #app {
@@ -16,21 +17,109 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: rgb(46, 54, 83);
 }
 
 .slot {
-  background: url("/src/slot.png") cover;
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: 600px;
+  height: 300px;
+  z-index: 10;
+}
+
+.slot-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.arm {
+  cursor: pointer;
+  height: 300px;
+  width: 700px;
+  position: absolute;
+  top: 0;
+  z-index: 12;
+}
+
+.rolls {
+  position: relative;
+  width: 340px;
+  height: 130px;
+  top: 110px;
+  left: 120px;
+  z-index: -1;
+
+  overflow: hidden;
+}
+
+.roll {
+  z-index: -1;
+  display: inline-block;
+  width: 105px;
+  height: 130px;
+  position: absolute;
+}
+
+#roll-0 {
+  left: 0;
+  background-image: url("/src/roll.png");
+}
+
+#roll-1 {
+  left: 120px;
+  background-position-y: 140px;
+  background-image: url("/src/roll.png");
+}
+
+#roll-2 {
+  left: 236px;
+  background-position-y: 280px;
+  background-image: url("/src/roll.png");
+}
+
+.arm-0 {
+  background-image: url("/src/arm/0.png");
 }
 
 .arm-1 {
-  background: url("/src/arm/1.png") cover;
+  background-image: url("/src/arm/1.png");
 }
 
 .arm-2 {
-  background: url("/src/arm/1.png") cover;
+  background-image: url("/src/arm/2.png");
 }
 
-.arm-3 {
-  background: url("/src/arm/1.png") cover;
+.title {
+  animation: neonAnim 4s alternate-reverse infinite;
+  font-size: 72px;
+  margin-bottom: 60px;
+}
+
+@keyframes neonAnim {
+  from {
+    color: #c44569;
+    text-shadow: 0 0 15px rgba(196, 69, 105, 0.7),
+      0 0 45px rgba(196, 69, 105, 0.7), 0 0 105px rgba(196, 69, 105, 0.7);
+  }
+  to {
+    color: rgba(241, 246, 101);
+
+    text-shadow: 0 0 10px rgba(241, 246, 101, 0.7),
+      0 0 25px rgba(241, 246, 101, 0.7), 0 0 65px rgba(241, 246, 101, 0.7);
+  }
+}
+
+.balance {
+  color: #f5cd79;
+  font-size: 56px;
+  margin-top: 20px;
+}
+
+#balance {
+  color: #2ed573;
 }

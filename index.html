@@ -9,11 +9,17 @@
   </head>
   <body>
     <div id="app">
+      <div class="title">Awesome slots</div>
       <div class="slot">
-        <div id="roll-1"></div>
-        <div id="roll-2"></div>
-        <div id="roll-3"></div>
+        <div class="rolls">
+          <div class="roll" id="roll-0"></div>
+          <div class="roll" id="roll-1"></div>
+          <div class="roll" id="roll-2"></div>
+        </div>
+        <div class="arm arm-0"></div>
+        <img src="./src/slot.png" class="slot-bg" />
       </div>
+      <div class="balance">Your balance: <span id="balance">50</span> $</div>
     </div>
     <script src="app.js"></script>
   </body>
