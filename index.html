@@ -8,8 +8,8 @@
     <title>Awesome slots</title>
   </head>
   <body>
-    <div id="app">
-      <div class="title">Awesome slots</div>
+    <div id="app" tabindex="0">
+      <h1 class="title">Awesome slots</h1>
       <div class="slot">
         <div class="rolls">
           <div class="roll" id="roll-0"></div>
@@ -20,7 +20,37 @@
         <img src="./src/slot.png" class="slot-bg" />
       </div>
       <div class="balance">Your balance: <span id="balance">50</span> $</div>
+
+      <div class="btn">
+        <label for="dailyReward">Доступна награда</label>
+        <button id="dailyReward">Получить</button>
+      </div>
+
+      <div class="alert" id="reward">+ <span></span> $</div>
+      <div class="alert" id="expense">- <span></span> $</div>
+      <div id="sidemenu" class="sidemenu closed">
+        <table class="leaderboard">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+
+        <div class="arrow" id="showBtn">→</div>
+
+        <div class="input">
+          <label class="name-label" for="name">Ваше имя</label>
+          <input id="name" type="text" />
+          <button id="confirm">Добавть</button>
+        </div>
+      </div>
     </div>
+
+    <audio id="coinSound" src="./src/coin.mp3"></audio>
+    <audio id="rollSound" src="./src/roll.mp3"></audio>
     <script src="app.js"></script>
   </body>
 </html>
