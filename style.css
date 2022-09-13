@@ -196,10 +196,9 @@ td {
   box-shadow: 2px 2px 0px 2px rgba(0, 0, 0, 0.7);
 }
 
-.name-label {
+label {
+  font-size: 1.25rem;
   color: #fff;
-  left: 50px;
-  bottom: 140px;
 }
 
 .arrow {
@@ -212,4 +211,30 @@ td {
   right: -30px;
 
   cursor: pointer;
+}
+
+.btn {
+  margin-top: 15px;
+  border: 1px solid #f5cd79;
+  padding: 15px;
+  border-radius: 15px;
+
+  /* display: flex;s */
+  flex-direction: column;
+  gap: 10px;
+
+  display: none;
+}
+
+button {
+  padding: 5px 15px;
+  border-radius: 15px;
+  color: black;
+  outline: none;
+  border: 1px solid transparent;
+  background-color: #f5cd79;
+}
+
+button:hover {
+  box-shadow: 0px 0px 4px 2px #f5cd79;
 }

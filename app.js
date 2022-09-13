@@ -1,42 +1,50 @@
+// Init selectors
+// Slot mahine controls
 const arm = document.querySelector(".arm");
 const roll0 = document.getElementById("roll-0");
 const roll1 = document.getElementById("roll-1");
 const roll2 = document.getElementById("roll-2");
 
+// Balance
 const balanceElement = document.getElementById("balance");
 
+// Side menu
 const showBtn = document.getElementById("showBtn");
 const sideMenu = document.getElementById("sidemenu");
-let isSideMenuShowing = false;
 
+// Leaderbords table
 const tableBody = document.getElementById("tableBody");
-
 const confirmBtn = document.getElementById("confirm");
 
-const user = JSON.parse(localStorage.getItem("user")) || {
-  name: "user",
-  balance: 50,
-};
-
+// Username input
 const userName = document.getElementById("name");
 
-balanceElement.innerText = user.balance;
-
+// Rewards and expenses
 const reward = document.getElementById("reward");
 const expense = document.getElementById("expense");
 
+// Sounds
 const coinSound = document.getElementById("coinSound");
 const rollSound = document.getElementById("rollSound");
 rollSound.loop = true;
 
+// Player object
+const user = JSON.parse(localStorage.getItem("user")) || {
+  name: "user",
+  balance: 50,
+};
+balanceElement.innerText = user.balance;
+
+// Programm flags
+let isSideMenuShowing = false;
 let isSpining = false;
 let spinsCount = 0;
 
 // config
-
 const cardHeight = 140;
 const priceGame = 1;
 
+// Additional functions
 const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
@@ -45,6 +53,7 @@ const randInt = (max = 10) => {
   return Math.floor(Math.random() * max) + 1;
 };
 
+// Balance logic
 const rewardCheck = (arr) => {
   const count = arr.reduce((acc, el) => {
     acc[el] = (acc[el] || 0) + 1;
@@ -59,6 +68,7 @@ const changeBalance = (value) => {
   balanceElement.textContent = user.balance;
 };
 
+// Alert logic
 const showAlert = async (mode, value = priceGame) => {
   if (mode === "expense") {
     expense.innerText = `-${value}$`;
@@ -79,6 +89,7 @@ const showAlert = async (mode, value = priceGame) => {
   }
 };
 
+// Menu logic
 const toggleMenu = () => {
   sideMenu.classList.toggle("closed");
   isSideMenuShowing = !isSideMenuShowing;
@@ -128,7 +139,6 @@ const initLeaderboard = (user = null) => {
   if (!!user) {
     leaderboardData = leaderboardData.filter((item) => item.name !== user.name);
     leaderboardData = [...leaderboardData, user];
-    console.log(leaderboardData);
   }
   leaderboardData = leaderboardData.sort((a, b) => b.value - a.value);
   leaderboardData = leaderboardData.slice(0, 6);
@@ -144,6 +154,7 @@ const initLeaderboard = (user = null) => {
   localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
 };
 
+// Animations
 const armAnimation = () => {
   for (let i = 0; i < 2; i++) {
     setTimeout(() => {
@@ -191,6 +202,7 @@ const spinAnimation = async (element, endPoint, maxSpeed, step = 1) => {
   spinsCount -= 1;
 };
 
+// Start game function
 const startGame = async () => {
   if (isSpining || spinsCount || user.balance <= 0) return;
   changeBalance(-priceGame);
@@ -242,8 +254,10 @@ const startGame = async () => {
   isSpining = false;
 };
 
+// Init
 initLeaderboard();
 
+// Init event listeners
 arm.addEventListener("click", startGame);
 document.getElementById("app").addEventListener("keypress", (event) => {
   if (event.key === "Enter" || event.code === "Space") {
