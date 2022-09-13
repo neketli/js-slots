@@ -213,17 +213,15 @@ label {
   cursor: pointer;
 }
 
-.btn {
+.dailyReward {
   margin-top: 15px;
   border: 1px solid #f5cd79;
   padding: 15px;
   border-radius: 15px;
 
-  /* display: flex;s */
+  display: flex;
   flex-direction: column;
   gap: 10px;
-
-  display: none;
 }
 
 button {

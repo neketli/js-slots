@@ -23,6 +23,10 @@ const userName = document.getElementById("name");
 const reward = document.getElementById("reward");
 const expense = document.getElementById("expense");
 
+// Daily reward
+const getDailyRewardElement = document.getElementById("getDailyReward");
+const dailyReward = document.querySelector(".dailyReward");
+
 // Sounds
 const coinSound = document.getElementById("coinSound");
 const rollSound = document.getElementById("rollSound");
@@ -32,8 +36,14 @@ rollSound.loop = true;
 const user = JSON.parse(localStorage.getItem("user")) || {
   name: "user",
   balance: 50,
+  lastReward: Date.now(),
 };
 balanceElement.innerText = user.balance;
+
+// Daily reward check
+if (Date.now() - user.lastReward < 1000 * 60 * 60 * 24) {
+  dailyReward.style.display = "none";
+}
 
 // Programm flags
 let isSideMenuShowing = false;
@@ -43,6 +53,7 @@ let spinsCount = 0;
 // config
 const cardHeight = 140;
 const priceGame = 1;
+const dailyRewardPrice = 10;
 
 // Additional functions
 const sleep = (ms) => {
@@ -66,6 +77,13 @@ const rewardCheck = (arr) => {
 const changeBalance = (value) => {
   user.balance += value;
   balanceElement.textContent = user.balance;
+};
+
+const getDailyReward = () => {
+  changeBalance(dailyRewardPrice);
+  user.lastReward = Date.now();
+  dailyReward.style.display = "none";
+  localStorage.setItem("user", JSON.stringify(user));
 };
 
 // Alert logic
@@ -140,7 +158,7 @@ const initLeaderboard = (user = null) => {
     leaderboardData = leaderboardData.filter((item) => item.name !== user.name);
     leaderboardData = [...leaderboardData, user];
   }
-  leaderboardData = leaderboardData.sort((a, b) => b.value - a.value);
+  leaderboardData = leaderboardData.sort((a, b) => b.balance - a.balance);
   leaderboardData = leaderboardData.slice(0, 6);
 
   // Clear table
@@ -273,3 +291,5 @@ confirmBtn.addEventListener("click", () => {
 userName.addEventListener("input", (event) => {
   user.name = event.target.value;
 });
+
+getDailyRewardElement.addEventListener("click", getDailyReward);
