@@ -4,12 +4,17 @@ const roll1 = document.getElementById("roll-1");
 const roll2 = document.getElementById("roll-2");
 
 const balanceElement = document.getElementById("balance");
-let balance = Number.parseInt(balanceElement.textContent);
+let balance = localStorage.getItem("balance") || 50;
+balanceElement.innerText = balance;
 
-const changeBalance = (value) => {
-  balance += value;
-  balanceElement.textContent = balance;
-};
+balance = Number.parseInt(balanceElement.textContent);
+
+const reward = document.getElementById("reward");
+const expense = document.getElementById("expense");
+
+const coinSound = document.getElementById("coinSound");
+const rollSound = document.getElementById("rollSound");
+rollSound.loop = true;
 
 let isSpining = false;
 let spinsCount = 0;
@@ -18,7 +23,6 @@ let spinsCount = 0;
 
 const cardHeight = 140;
 const priceGame = 1;
-const winReward = 5;
 
 const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -29,10 +33,37 @@ const randInt = (max = 10) => {
 };
 
 const rewardCheck = (arr) => {
-  let reward = arr.reduce((acc, el) => {
+  const count = arr.reduce((acc, el) => {
     acc[el] = (acc[el] || 0) + 1;
     return acc;
   }, {});
+  const reward = (3 - Object.values(count).length) * 5;
+  return reward;
+};
+
+const changeBalance = (value) => {
+  balance += value;
+  balanceElement.textContent = balance;
+};
+
+const showAlert = async (mode, value = priceGame) => {
+  if (mode === "expense") {
+    expense.innerText = `-${value}$`;
+    expense.style.display = "block";
+    for (let i = 50; i > 30; i--) {
+      expense.style.top = `${i}%`;
+      await sleep(1000 / 30);
+    }
+    expense.style.display = "none";
+  } else {
+    reward.innerText = `+${value}$`;
+    reward.style.display = "block";
+    for (let i = 50; i > 30; i--) {
+      reward.style.top = `${i}%`;
+      await sleep(1000 / 30);
+    }
+    reward.style.display = "none";
+  }
 };
 
 const armAnimation = () => {
@@ -47,8 +78,6 @@ const armAnimation = () => {
       arm.classList.add(`arm-${i}`);
     }, 75 * -i + 400);
   }
-
-  return sleep(400);
 };
 
 const spin = async (element, endPoint, maxSpeed, step = 1) => {
@@ -87,8 +116,16 @@ const spin = async (element, endPoint, maxSpeed, step = 1) => {
 const startGame = async () => {
   if (isSpining || spinsCount || balance <= 0) return;
   changeBalance(-priceGame);
+  showAlert("expense");
+
+  coinSound.play();
+  while (!coinSound.ended) {
+    await sleep(1);
+  }
+  rollSound.play();
+
   isSpining = true;
-  await armAnimation();
+  armAnimation();
 
   const rolls = [
     {
@@ -108,11 +145,27 @@ const startGame = async () => {
     },
   ];
 
-  await rolls.forEach((item) => {
+  rolls.forEach((item) => {
     spin(item.element, cardHeight * item.value * 7, item.speed);
   });
 
+  while (spinsCount) {
+    await sleep(10);
+  }
+
+  rollSound.pause();
+  const reward = rewardCheck(rolls.map((item) => item.value));
+  if (!!reward) {
+    showAlert("reward", reward);
+    changeBalance(reward);
+  }
+  localStorage.setItem("balance", balance);
   isSpining = false;
 };
 
 arm.addEventListener("click", startGame);
+document.getElementById("app").addEventListener("keypress", (event) => {
+  if (event.key === "Enter" || event.code === "Space") {
+    startGame();
+  }
+});

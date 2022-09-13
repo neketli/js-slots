@@ -123,3 +123,23 @@ body {
 #balance {
   color: #2ed573;
 }
+
+#start {
+  display: none;
+}
+
+.alert {
+  display: none;
+  position: absolute;
+  font-size: 36px;
+  font-weight: 600;
+  right: 50px;
+}
+
+#reward {
+  color: #2ed573;
+}
+
+#expense {
+  color: #c44569;
+}
