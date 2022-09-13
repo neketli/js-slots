@@ -161,7 +161,7 @@ body {
 }
 
 .sidemenu.closed {
-  transform: translate(-300px);
+  transform: translate(-23vw);
 }
 
 table {

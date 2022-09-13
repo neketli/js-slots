@@ -4,8 +4,6 @@ const roll1 = document.getElementById("roll-1");
 const roll2 = document.getElementById("roll-2");
 
 const balanceElement = document.getElementById("balance");
-let balance = localStorage.getItem("balance") || 50;
-balanceElement.innerText = balance;
 
 const showBtn = document.getElementById("showBtn");
 const sideMenu = document.getElementById("sidemenu");
@@ -13,17 +11,16 @@ let isSideMenuShowing = false;
 
 const tableBody = document.getElementById("tableBody");
 
-const user = {
+const confirmBtn = document.getElementById("confirm");
+
+const user = JSON.parse(localStorage.getItem("user")) || {
   name: "user",
-  value: 50,
+  balance: 50,
 };
 
 const userName = document.getElementById("name");
-userName.addEventListener("input", (event) => {
-  user.name = event.target.value;
-});
 
-balance = Number.parseInt(balanceElement.textContent);
+balanceElement.innerText = user.balance;
 
 const reward = document.getElementById("reward");
 const expense = document.getElementById("expense");
@@ -58,8 +55,8 @@ const rewardCheck = (arr) => {
 };
 
 const changeBalance = (value) => {
-  balance += value;
-  balanceElement.textContent = balance;
+  user.balance += value;
+  balanceElement.textContent = user.balance;
 };
 
 const showAlert = async (mode, value = priceGame) => {
@@ -93,7 +90,7 @@ const appendTableRow = (item) => {
   const name = document.createElement("td");
   name.innerText = item.name;
   const value = document.createElement("td");
-  value.innerText = item.value;
+  value.innerText = item.balance;
   row.appendChild(name);
   row.appendChild(value);
   tableBody.appendChild(row);
@@ -103,23 +100,23 @@ const initLeaderboard = (user = null) => {
   const LEADERS = [
     {
       name: "Иван",
-      value: 1017,
+      balance: 1017,
     },
     {
       name: "Alek$$",
-      value: 689,
+      balance: 689,
     },
     {
       name: "Rakhim ahmed",
-      value: 377,
+      balance: 377,
     },
     {
       name: "Даша",
-      value: 142,
+      balance: 142,
     },
     {
       name: "Павел Птрович",
-      value: 65,
+      balance: 65,
     },
   ];
 
@@ -129,18 +126,20 @@ const initLeaderboard = (user = null) => {
   }
 
   if (!!user) {
-    leaderboardData.push.user;
+    leaderboardData = leaderboardData.filter((item) => item.name !== user.name);
+    leaderboardData = [...leaderboardData, user];
+    console.log(leaderboardData);
   }
   leaderboardData = leaderboardData.sort((a, b) => b.value - a.value);
+  leaderboardData = leaderboardData.slice(0, 6);
 
   // Clear table
   if (tableBody.rows) {
     const len = tableBody.rows.length;
     for (var i = 0; i < len; i++) {
-      table.deleteRow(0);
+      tableBody.deleteRow(0);
     }
   }
-
   leaderboardData.forEach((item) => appendTableRow(item));
   localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
 };
@@ -193,7 +192,7 @@ const spinAnimation = async (element, endPoint, maxSpeed, step = 1) => {
 };
 
 const startGame = async () => {
-  if (isSpining || spinsCount || balance <= 0) return;
+  if (isSpining || spinsCount || user.balance <= 0) return;
   changeBalance(-priceGame);
   showAlert("expense");
 
@@ -238,7 +237,8 @@ const startGame = async () => {
     showAlert("reward", reward);
     changeBalance(reward);
   }
-  localStorage.setItem("balance", balance);
+
+  localStorage.setItem("user", JSON.stringify(user));
   isSpining = false;
 };
 
@@ -250,4 +250,12 @@ document.getElementById("app").addEventListener("keypress", (event) => {
     startGame();
   }
 });
+
 showBtn.addEventListener("click", toggleMenu);
+confirmBtn.addEventListener("click", () => {
+  initLeaderboard(user);
+});
+
+userName.addEventListener("input", (event) => {
+  user.name = event.target.value;
+});
