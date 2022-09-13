@@ -19,6 +19,7 @@ body {
   justify-content: center;
   flex-direction: column;
   background-color: rgb(46, 54, 83);
+  overflow: hidden;
 }
 
 .slot {
@@ -122,4 +123,73 @@ body {
 
 #balance {
   color: #2ed573;
+}
+
+.sidemenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 20vw;
+  height: 100%;
+  padding: 0 20px;
+
+  transition: all 0.2s linear;
+}
+
+.sidemenu.closed {
+  transform: translate(-300px);
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+th,
+td {
+  color: #fff;
+  padding: 10px 20px;
+  border: 1px solid #fff;
+  border-radius: 15px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#name {
+  left: 50px;
+  bottom: 100px;
+
+  outline: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+#name:focus {
+  box-shadow: 2px 2px 0px 2px rgba(0, 0, 0, 0.7);
+}
+
+.name-label {
+  color: #fff;
+  left: 50px;
+  bottom: 140px;
+}
+
+.arrow {
+  color: #fff;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+
+  position: absolute;
+  right: -30px;
+
+  cursor: pointer;
 }

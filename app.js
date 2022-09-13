@@ -6,6 +6,22 @@ const roll2 = document.getElementById("roll-2");
 const balanceElement = document.getElementById("balance");
 let balance = Number.parseInt(balanceElement.textContent);
 
+const showBtn = document.getElementById("showBtn");
+const sideMenu = document.getElementById("sidemenu");
+let isSideMenuShowing = false;
+
+const tableBody = document.getElementById("tableBody");
+
+const user = {
+  name: "user",
+  value: 50,
+};
+
+const userName = document.getElementById("name");
+userName.addEventListener("input", (event) => {
+  user.name = event.target.value;
+});
+
 const changeBalance = (value) => {
   balance += value;
   balanceElement.textContent = balance;
@@ -35,6 +51,69 @@ const rewardCheck = (arr) => {
   }, {});
 };
 
+const toggleMenu = () => {
+  sideMenu.classList.toggle("closed");
+  isSideMenuShowing = !isSideMenuShowing;
+  showBtn.innerText = isSideMenuShowing ? "←" : "→";
+};
+
+const appendTableRow = (item) => {
+  const row = document.createElement("tr");
+  const name = document.createElement("td");
+  name.innerText = item.name;
+  const value = document.createElement("td");
+  value.innerText = item.value;
+  row.appendChild(name);
+  row.appendChild(value);
+  tableBody.appendChild(row);
+};
+
+const initLeaderboard = (user = null) => {
+  const LEADERS = [
+    {
+      name: "Иван",
+      value: 1017,
+    },
+    {
+      name: "Alek$$",
+      value: 689,
+    },
+    {
+      name: "Rakhim ahmed",
+      value: 377,
+    },
+    {
+      name: "Даша",
+      value: 142,
+    },
+    {
+      name: "Павел Птрович",
+      value: 65,
+    },
+  ];
+
+  let leaderboardData = JSON.parse(localStorage.getItem("leaderboard"));
+  if (!leaderboardData) {
+    leaderboardData = LEADERS;
+  }
+
+  if (!!user) {
+    leaderboardData.push.user;
+  }
+  leaderboardData = leaderboardData.sort((a, b) => b.value - a.value);
+
+  // Clear table
+  if (tableBody.rows) {
+    const len = tableBody.rows.length;
+    for (var i = 0; i < len; i++) {
+      table.deleteRow(0);
+    }
+  }
+
+  leaderboardData.forEach((item) => appendTableRow(item));
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
+};
+
 const armAnimation = () => {
   for (let i = 0; i < 2; i++) {
     setTimeout(() => {
@@ -51,7 +130,7 @@ const armAnimation = () => {
   return sleep(400);
 };
 
-const spin = async (element, endPoint, maxSpeed, step = 1) => {
+const spinAnimation = async (element, endPoint, maxSpeed, step = 1) => {
   spinsCount += 1;
   let k = step;
   let position = 0;
@@ -109,10 +188,13 @@ const startGame = async () => {
   ];
 
   await rolls.forEach((item) => {
-    spin(item.element, cardHeight * item.value * 7, item.speed);
+    spinAnimation(item.element, cardHeight * item.value * 7, item.speed);
   });
 
   isSpining = false;
 };
 
+initLeaderboard();
+
 arm.addEventListener("click", startGame);
+showBtn.addEventListener("click", toggleMenu);
