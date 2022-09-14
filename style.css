@@ -68,31 +68,31 @@ body {
 
 #roll-0 {
   left: 0;
-  background-image: url("/src/roll.png");
+  background-image: url("./src/roll.png");
 }
 
 #roll-1 {
   left: 120px;
   background-position-y: 140px;
-  background-image: url("/src/roll.png");
+  background-image: url("./src/roll.png");
 }
 
 #roll-2 {
   left: 236px;
   background-position-y: 280px;
-  background-image: url("/src/roll.png");
+  background-image: url("./src/roll.png");
 }
 
 .arm-0 {
-  background-image: url("/src/arm/0.png");
+  background-image: url("./src/arm/0.png");
 }
 
 .arm-1 {
-  background-image: url("/src/arm/1.png");
+  background-image: url("./src/arm/1.png");
 }
 
 .arm-2 {
-  background-image: url("/src/arm/2.png");
+  background-image: url("./src/arm/2.png");
 }
 
 .title {
