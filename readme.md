@@ -6,7 +6,7 @@ You can test the application from the link: [JS slots](https://neketli.github.io
 
 To run the project, you need the live server extension for vs code or any other server.
 
-![JS slots](https://i.ibb.co/PgdPjMY/Slots-Preview.gif)
+![JS slots](https://i.ibb.co/rvzJ5vC/Slots-Preview1.gif)
 
 ## Features of this implementation
 
