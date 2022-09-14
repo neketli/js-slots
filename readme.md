@@ -6,7 +6,7 @@ You can test the application from the link: [JS slots](https://neketli.github.io
 
 To run the project, you need the live server extension for vs code or any other server.
 
-![JS slots](https://i.ibb.co/0Drx0VP/preview.gif)
+![JS slots](https://i.ibb.co/SsBzk7q/preview.gif)
 
 ## Features of this implementation
 
@@ -16,4 +16,4 @@ To run the project, you need the live server extension for vs code or any other 
 - Possibility of configuration
 - Leaderboard, daily rewards, balance notifications.
 
-🎰 🌟 Have fun! 💫
+## 🎰 🌟 Have fun! 💫
