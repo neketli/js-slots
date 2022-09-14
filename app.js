@@ -36,7 +36,7 @@ rollSound.loop = true;
 const user = JSON.parse(localStorage.getItem("user")) || {
   name: "user",
   balance: 50,
-  lastReward: Date.now(),
+  lastReward: Date.now() - 1000 * 60 * 60 * 24,
 };
 balanceElement.innerText = user.balance;
 
@@ -80,6 +80,7 @@ const changeBalance = (value) => {
 };
 
 const getDailyReward = () => {
+  showAlert("reward", dailyRewardPrice);
   changeBalance(dailyRewardPrice);
   user.lastReward = Date.now();
   dailyReward.style.display = "none";
@@ -128,11 +129,11 @@ const appendTableRow = (item) => {
 const initLeaderboard = (user = null) => {
   const LEADERS = [
     {
-      name: "Иван",
+      name: "Player 1",
       balance: 1017,
     },
     {
-      name: "Alek$$",
+      name: "$erious $am",
       balance: 689,
     },
     {
@@ -140,11 +141,11 @@ const initLeaderboard = (user = null) => {
       balance: 377,
     },
     {
-      name: "Даша",
+      name: "Undefined",
       balance: 142,
     },
     {
-      name: "Павел Птрович",
+      name: "skeleton",
       balance: 65,
     },
   ];
@@ -159,7 +160,7 @@ const initLeaderboard = (user = null) => {
     leaderboardData = [...leaderboardData, user];
   }
   leaderboardData = leaderboardData.sort((a, b) => b.balance - a.balance);
-  leaderboardData = leaderboardData.slice(0, 6);
+  leaderboardData = leaderboardData.slice(0, 5);
 
   // Clear table
   if (tableBody.rows) {

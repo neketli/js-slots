@@ -125,10 +125,6 @@ body {
   color: #2ed573;
 }
 
-#start {
-  display: none;
-}
-
 .alert {
   display: none;
   position: absolute;
@@ -161,7 +157,7 @@ body {
 }
 
 .sidemenu.closed {
-  transform: translate(-23vw);
+  transform: translate(-22vw);
 }
 
 table {
@@ -214,7 +210,7 @@ label {
 }
 
 .dailyReward {
-  margin-top: 15px;
+  margin-top: 40px;
   border: 1px solid #f5cd79;
   padding: 15px;
   border-radius: 15px;
