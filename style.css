@@ -125,8 +125,6 @@ body {
   color: #2ed573;
 }
 
-<<<<<<< HEAD
-=======
 .alert {
   display: none;
   position: absolute;
@@ -143,7 +141,6 @@ body {
   color: #c44569;
 }
 
->>>>>>> f8fd580 (Some refactoring, added readme)
 .sidemenu {
   position: absolute;
   display: flex;

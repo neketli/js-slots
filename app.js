@@ -254,7 +254,7 @@ const startGame = async () => {
     },
   ];
 
-  await rolls.forEach((item) => {
+  rolls.forEach((item) => {
     spinAnimation(item.element, cardHeight * item.value * 7, item.speed);
   });
 
